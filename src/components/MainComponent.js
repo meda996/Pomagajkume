@@ -20,7 +20,9 @@ onDishSelect(dishId) {
   this.setState({ selectedDish : dishId}) ;
 }
 
- render(){ return (
+ render(){
+
+  return (
    
 
   <div  >
@@ -31,7 +33,8 @@ onDishSelect(dishId) {
       </Navbar>
       <Menu dishes={this.state.dishes} 
       onClick={(dishId) => this.onDishSelect(dishId)} />
-      <Dishdetail dishSelect={ this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+      <Dishdetail 
+      dish={ this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
   </div>
 );
 }

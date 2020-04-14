@@ -1,45 +1,38 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardImg, CardBody,CardText, CardTitle} from "reactstrap";
 
-class Dishdetail extends Component {
 
- 
 
-    formatDate({ date }) {
-        return new Date(date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        });
-      }
 
-    //渲染点击Card
-    renderDish(dish) {
-        // console.log(dish)
-        if (dish != null) {
+
+function RenderDish({pedo}) {
+        
+    if (pedo != null) {
+        
             return(
                 <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+                    <CardImg width="100%" src={pedo.image} alt={pedo.name} />
                     <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
+                        <CardTitle>{pedo.name}</CardTitle>
+                        <CardText>{pedo.description}</CardText>
                     </CardBody>
                 </Card>
             )
         }
         else{
+            
             return(
-                <div></div>
+                <div> </div>
             )
         }
     }
 
-    renderComments(comments){
-        // console.log(comments)
-        if (comments != null) {
+ function RenderComments({comments}) {
+
+            if (comments != null) {
 
            const list = comments.map((comments) => {
-               const date = comments.date ;
+               
 
               return(
                 <div>
@@ -48,7 +41,10 @@ class Dishdetail extends Component {
                     <p>{comments.comment}</p>
                     <div className="row">
                         <p> -- {comments.author}  </p>
-                       <p> {new Intl.DateTimeFormat('en-US',{year: 'numeric' ,  month: 'short', day:'2-digit'}).format(new Date(Date.parse(comments.date)))} </p>
+                       <p> 
+                           {new Intl.DateTimeFormat
+                           ('en-US',{year: 'numeric' ,  month: 'short', day:'2-digit'}
+                           ).format(new Date(Date.parse(comments.date)))} </p>
                     </div>
                 </li>
                 </div> 
@@ -69,31 +65,30 @@ class Dishdetail extends Component {
             return(
                 <div></div>
             )
-        }
+        } 
+        
     }
 
-    render(){
+const DishDetail = (props) => {
 
-        // console.log(this.props.dishSelect)
-        const {dishSelect} = this.props;
-        console.log(dishSelect);
-
-        return dishSelect?(
-            <div class="container">
-                <div className="row col-12" >
-                    <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(dishSelect)}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(dishSelect.comments)}
-                    </div>
+ 
+return (
+        <div class="container">
+            <div className="row col-12" >
+                <div className="col-12 col-md-5 m-1">
+                <RenderDish pedo={props.dish} /> 
                 </div>
+                <div className="col-12 col-md-5 m-1">
+                <RenderComments comments={props.comments} />
                 </div>
-        ):(
-            <div></div>
-        )
-    }
-
+            </div>
+            </div>
+    )
+       
 }
 
-export default Dishdetail ;
+    
+
+
+
+export default DishDetail ;
